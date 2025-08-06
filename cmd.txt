@@ -1,0 +1,5 @@
+docker volume ls --see the volumes
+docker-compose down -v --destroying the containers Completely
+docker-compose up -d --build --rebuild and start in the background, the d is detashed!
+https://sabakar-.42.fr/wp-admin --The admin page to login
+docker exec -it [container_name] /bin/sh --To get into the container to exec cmds

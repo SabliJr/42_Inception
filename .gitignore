@@ -1,0 +1,20 @@
+# Normally where you throw your credentials and secrets files to prevent from pushing them online
+
+# Environment variables
+# srcs/.env
+
+# MacOS files
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+
+# Docker volumes
+docker/volumes/
+*/volumes/
+**/volumes/
+
+# IDE files
+.vscode/
+
+secrets

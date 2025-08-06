@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    volumes: #to persistent the data locally
+      - db_data:/var/lib/mysql
+    networks: 
+      - network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always #to restart the container automatically in case of crash or something
+    env_file:
+      - .env
+
+  nginx:
+    container_name: ngx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    restart: always
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - network
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    expose:
+      - "9000"
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - network
+    restart: always
+    env_file:
+      - .env
+
+volumes:
+  db_data:
+  wp_data:
+
+networks:
+  network:
+    driver: bridge
+
