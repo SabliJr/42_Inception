@@ -33,8 +33,8 @@ services:
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    expose:
-      - "9000"
+    # expose:
+    #   - "9000"
     depends_on:
       mariadb:
         condition: service_healthy
